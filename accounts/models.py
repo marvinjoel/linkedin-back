@@ -18,7 +18,7 @@ class SocialMedia(models.Model):
 
 class User(AbstractBaseUser, PermissionsMixin):
 
-    ROL_CHOISE = [
+    ROL_CHOICES = [
         ('Full-Stack', 'Full-Stack'),
         ('Front-End', 'Front-End'),
         ('Back-End', 'Back-End'),
@@ -30,7 +30,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     username = models.CharField(max_length=255)
     email = models.EmailField(max_length=255, unique=True, db_index=True)
     avatar = models.ImageField(default="no-avatar.jpg", upload_to='image/users', null=True, blank=True)
-    rol = models.CharField(choices=ROL_CHOISE, max_length=11)
+    rol = models.CharField(choices=ROL_CHOICES, max_length=11)
     social = models.ManyToManyField(SocialMedia)
     description = models.TextField(blank=True, null=True)
 
