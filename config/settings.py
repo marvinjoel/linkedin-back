@@ -39,14 +39,13 @@ DJANGO_APPS = [
 ]
 
 LOCAL_APPS = [
-
+    'accounts',
 ]
 
 THIRD_PARTY_APPS = [
     'rest_framework',
 ]
 # Application definition
-
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
