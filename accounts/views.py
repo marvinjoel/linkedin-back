@@ -10,13 +10,23 @@ from rest_framework.views import APIView
 from rest_framework_simplejwt.tokens import RefreshToken
 
 from accounts.models import User
-from accounts.serializers import RegisterSerializer, EmailVerificationSerializer
+from accounts.serializers import RegisterSerializer, EmailVerificationSerializer, LoginSerializer
 from accounts.utils import Util
 
 from drf_yasg.utils import swagger_auto_schema
 from drf_yasg import openapi
 
 import jwt
+
+
+class LoginView(GenericAPIView):
+    serializer_class = LoginSerializer
+
+    def post(self, request):
+        serializer = self.serializer_class(data=request.data)
+        serializer.is_valid(raise_exception=True)
+
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
 
 class RegisterView(GenericAPIView):
