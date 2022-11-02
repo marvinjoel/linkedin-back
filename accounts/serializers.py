@@ -7,7 +7,7 @@ from rest_framework_simplejwt.tokens import RefreshToken, TokenError
 
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
 
-from accounts.models import User
+from accounts.models import User, SocialMedia
 
 
 class RegisterSerializer(serializers.ModelSerializer):
@@ -132,8 +132,15 @@ class LogoutSerializer(serializers.Serializer):
             self.fail('bad_token')
 
 
+class SocialMediaSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = SocialMedia
+        fields = '__all__'
+
+
 class UsersSerializer(serializers.ModelSerializer):
+    social = SocialMediaSerializer(read_only=True)
 
     class Meta:
         model = User
-        fields = ['id', 'username', 'email', 'rol', 'description']
+        fields = ['id', 'username', 'email', 'rol', 'avatar', 'social', 'description', 'is_verified']
