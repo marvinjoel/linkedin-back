@@ -8,9 +8,9 @@ from rest_framework_simplejwt.tokens import RefreshToken
 
 class SocialMedia(models.Model):
     github = models.CharField(max_length=200)
-    gitlab = models.CharField(max_length=200)
-    linkedin = models.CharField(max_length=200)
-    web = models.CharField(max_length=200)
+    gitlab = models.CharField(max_length=200, blank=True, null=True)
+    linkedin = models.CharField(max_length=200, blank=True, null=True)
+    web = models.CharField(max_length=200, blank=True, null=True)
 
     class Meta:
         verbose_name = 'SocialMedia'
@@ -33,7 +33,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(max_length=255, unique=True, db_index=True)
     avatar = models.ImageField(default="no-avatar.jpg", upload_to='image/users', null=True, blank=True)
     rol = models.CharField(choices=ROL_CHOICES, max_length=11)
-    social = models.ManyToManyField(SocialMedia)
+    social = models.ForeignKey(SocialMedia, on_delete=models.CASCADE, blank=True, null=True)
     description = models.TextField(blank=True, null=True)
 
     is_verified = models.BooleanField(default=False)
